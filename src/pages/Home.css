@@ -1,8 +1,22 @@
-.main-content {
+.main-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.main-side-bar {
+    min-width: 15vw;
+    background-color: #4b8aff;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #4b8aff;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

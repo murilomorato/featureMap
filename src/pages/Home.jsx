@@ -4,7 +4,10 @@ import './Home.css';
 
 function Home() {
     return (
-        <main>
+        <main className='main-container'>
+            {/* <div className='main-side-bar'>
+                <h1>barra lateral</h1>
+            </div> */}
             <div className='main-content'>
                 <Graph />
             </div>
