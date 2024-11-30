@@ -5,7 +5,7 @@ const Point = ({ position, scene }) => {
     const pointRef = useRef();
 
     useEffect(() => {
-        const geometry = new THREE.CircleGeometry(0.6, 32); // Aumentar o tamanho do ponto
+        const geometry = new THREE.CircleGeometry(0.6, 32);
         const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
         const circle = new THREE.Mesh(geometry, material);
         circle.position.set(position.x, position.y, position.z);

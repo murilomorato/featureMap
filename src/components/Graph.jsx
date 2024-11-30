@@ -1,19 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import Point from './atoms/Point';
+import Line from './atoms/Line';
 import { createCamera, createRenderer, handleResize, setupZoom } from '../utils/threeHelpers';
-import { getPoints } from '../services/pointService';
+import { getPointsAndConnections } from '../services/pointService';
 
 const Graph = () => {
     const mountRef = useRef(null);
     const sceneRef = useRef(new THREE.Scene());
     const [points, setPoints] = useState([]);
+    const [lines, setLines] = useState([]);
 
     useEffect(() => {
         const initializeGraph = async () => {
 
-            const data = await getPoints();
-            setPoints(data);
+            const { points, lines } = await getPointsAndConnections();
+            setPoints(points);
+            setLines(lines);
 
             const width = window.innerWidth;
             const height = window.innerHeight;
@@ -49,6 +52,9 @@ const Graph = () => {
         <div ref={mountRef}>
             {points.map(point => (
                 <Point key={point.id} position={point.position} scene={sceneRef.current} />
+            ))}
+            {lines.map(line => (
+                <Line key={line.id} start={line.start} end={line.end} scene={sceneRef.current} />
             ))}
         </div>
     );
