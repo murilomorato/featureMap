@@ -15,7 +15,7 @@ const Line = ({ start, end, scene }) => {
         points.push(new THREE.Vector3(end.x, end.y, end.z));
         const geometry = new THREE.BufferGeometry().setFromPoints(points);
         const line = new THREE.Line(geometry, material);
-        line.computeLineDistances(); // Necessário para linhas tracejadas
+        line.computeLineDistances();
         lineRef.current = line;
         scene.add(line);
 
