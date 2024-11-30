@@ -51,7 +51,7 @@ const Graph = () => {
     return (
         <div ref={mountRef}>
             {points.map(point => (
-                <Point key={point.id} position={point.position} scene={sceneRef.current} />
+                <Point key={point.id} position={point.position} name={point.name} scene={sceneRef.current} />
             ))}
             {lines.map(line => (
                 <Line key={line.id} start={line.start} end={line.end} scene={sceneRef.current} />
