@@ -26,8 +26,8 @@ const Graph = () => {
             const renderer = createRenderer(width, height);
             mountRef.current.appendChild(renderer.domElement);
 
-            const zoomSensibility = 1.0; // Ajuste a sensibilidade do zoom conforme necessário
-            const moveSensibility = 0.1; // Ajuste a sensibilidade do movimento conforme necessário
+            const zoomSensibility = 1.0; //sensibilidade do zoom
+            const moveSensibility = 0.1; //sensibilidade do movimento
             setupZoom(renderer, camera, zoomSensibility, moveSensibility);
 
             const animate = () => {

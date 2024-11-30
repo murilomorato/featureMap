@@ -1,0 +1,26 @@
+{
+    "points": [
+        {
+            "id": 0,
+            "name": "Point 0",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 1,
+            "name": "Point 1",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    ],
+    "connections": [
+        {
+            "id": 0,
+            "idPointStart": 0,
+            "idPointEnd": 1
+        },
+        {
+            "id": 1,
+            "idPointStart": 1,
+            "idPointEnd": 2
+        }
+    ]
+}

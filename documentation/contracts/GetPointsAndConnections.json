@@ -1,0 +1,53 @@
+{
+    "type": "object",
+    "properties": {
+        "points": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "description"
+                ]
+            }
+        },
+        "connections": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "idPointStart": {
+                        "type": "integer"
+                    },
+                    "idPointEnd": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "id",
+                    "idPointStart",
+                    "idPointEnd"
+                ]
+            }
+        }
+    },
+    "required": [
+        "points",
+        "connections"
+    ]
+}

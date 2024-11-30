@@ -8,4 +8,9 @@ class Point {
     }
 }
 
+export const getPositionById = (points, id) => {
+    const point = points.find(point => point.id === id);
+    return point ? point.position : null;
+};
+
 export default Point;

@@ -1,5 +1,6 @@
 import { randomPosition } from '../utils/pointPosition';
-import Point from '../models/PointModel';
+import Point, { getPositionById } from '../models/PointModel';
+import Connections from '../models/ConnectionModel';
 
 export const getPointsAndConnections = async () => {
     try {
@@ -27,15 +28,32 @@ const getAllPoints = async () => {
 
 const getAllConnections = (points) => {
 
-    return points.map((point, index) => {
-        if (index < points.length - 1) {
+    const numConnetions = 100;
+    const connections = [];
+
+    for (let i = 0; i < numConnetions; i++) {
+        let idPointStart = Math.floor(Math.random() * points.length);
+        let idPointEnd = Math.floor(Math.random() * points.length);
+        if (idPointStart !== idPointEnd) {
+            let connection = new Connections(i, idPointStart, idPointEnd);
+            connections.push(connection);
+        }
+    }
+
+    const linesCoordinates = connections.map((connection, index) => {
+        const startPosition = getPositionById(points, connection.idPointStart);
+        const endPosition = getPositionById(points, connection.idPointEnd);
+
+        if (index < connections.length - 1) {
             return {
                 id: index,
-                start: point.position,
-                end: points[index + 1].position,
+                start: startPosition,
+                end: endPosition,
             };
         }
         return null;
     }).filter(line => line !== null);
+
+    return linesCoordinates;
 
 };
