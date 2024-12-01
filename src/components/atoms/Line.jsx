@@ -1,14 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const Line = ({ start, end, scene }) => {
+const Line = ({ start, end, scene, opacity }) => {
     const lineRef = useRef();
 
     useEffect(() => {
         const material = new THREE.LineDashedMaterial({
             color: 0xafafaf,
             dashSize: 0.06,
-            gapSize: 0.06
+            gapSize: 0.06,
+            transparent: true,
+            opacity: opacity
         });
         const points = [];
         points.push(new THREE.Vector3(start.x, start.y, start.z));
@@ -22,7 +24,7 @@ const Line = ({ start, end, scene }) => {
         return () => {
             scene.remove(line);
         };
-    }, [start, end, scene]);
+    }, [start, end, scene, opacity]);
 
     return null;
 };

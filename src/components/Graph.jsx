@@ -10,6 +10,7 @@ const Graph = () => {
     const sceneRef = useRef(new THREE.Scene());
     const [points, setPoints] = useState([]);
     const [lines, setLines] = useState([]);
+    const [selectedPoint, setSelectedPoint] = useState(null);
 
     useEffect(() => {
         const initializeGraph = async () => {
@@ -23,6 +24,7 @@ const Graph = () => {
             const initZoomScale = 20;
 
             const camera = createCamera(width, height, initZoomScale);
+            sceneRef.current.userData.camera = camera;
             const renderer = createRenderer(width, height);
             mountRef.current.appendChild(renderer.domElement);
 
@@ -48,13 +50,32 @@ const Graph = () => {
         initializeGraph();
     }, []);
 
+    const handlePointClick = (pointId) => {
+        console.log(`Ponto clicado: ${pointId}`);
+        setSelectedPoint(pointId);
+    };
+
     return (
         <div ref={mountRef}>
             {points.map(point => (
-                <Point key={point.id} position={point.position} name={point.name} scene={sceneRef.current} />
+                <Point
+                    key={point.id}
+                    id={point.id}
+                    position={point.position}
+                    name={point.name}
+                    scene={sceneRef.current}
+                    onClick={handlePointClick}
+                    opacity={selectedPoint ? 0.2 : 1}
+                />
             ))}
             {lines.map(line => (
-                <Line key={line.id} start={line.start} end={line.end} scene={sceneRef.current} />
+                <Line
+                    key={line.id}
+                    start={line.start}
+                    end={line.end}
+                    scene={sceneRef.current}
+                    opacity={selectedPoint ? 0.2 : 1}
+                />
             ))}
         </div>
     );
