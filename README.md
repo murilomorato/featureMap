@@ -2,31 +2,6 @@
 
 Este projeto é uma aplicação de visualização de dados em 2D usando React e a biblioteca Three.js. A aplicação permite visualizar pontos e conexões de dados um espaço físico. tridimensional.
 
-## Estrutura do Projeto
-
-A estrutura do projeto é organizada da seguinte forma:
-
-featuremap/
-├── documentation/
-│   └── contracts/
-│       └── contratos e modelos de exemplo para api
-├── src/
-│   ├── components/
-│   │   ├── atoms/
-│   │   │   └── Point (componente de ponto do gráfico)
-│   │   │   └── Line (componente de linha que liga pontos no gráfico)
-│   │   ├── molecules/
-│   │   │   └── Graph (componente da grid que constroi o gráfico com os pontos)
-│   │   └── Home (componente da tela principal)
-│   ├── models/
-│   │   ├── ConnectionModel.jsx
-│   │   └── PointModel.jsx
-│   ├── pages/
-│   ├── services/
-│   ├── utils/
-└── README.md
-
-
 ### Descrição das Pastas e Arquivos
 
 - **documentation/contracts/**: Contém arquivos JSON que descrevem os contratos de dados usados na aplicação.
