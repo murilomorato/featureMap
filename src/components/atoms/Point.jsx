@@ -72,7 +72,16 @@ const Point = ({ id, position, name, scene, onClick, opacity }) => {
             scene.remove(circle);
             scene.remove(sprite);
         };
-    }, [position, name, scene, onClick, opacity]);
+    }, [id, position, name, scene, onClick, opacity]);
+
+    useEffect(() => {
+        if (pointRef.current) {
+            pointRef.current.material.opacity = opacity;
+        }
+        if (textRef.current) {
+            textRef.current.material.opacity = opacity;
+        }
+    }, [opacity]);
 
     return null;
 };

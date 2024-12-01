@@ -65,7 +65,7 @@ const Graph = () => {
                     name={point.name}
                     scene={sceneRef.current}
                     onClick={handlePointClick}
-                    opacity={selectedPoint ? 0.2 : 1}
+                    opacity={selectedPoint === point.id ? 1 : selectedPoint ? 0.2 : 1}
                 />
             ))}
             {lines.map(line => (
