@@ -1,14 +1,9 @@
 export const itemColors = [
-    '#5BC0EB',
-    '#FDE74C',
-    '#9BC53D',
-    '#C3423F',
-    '#8C1A6A',
-    '#38726C',
-    '#CE1483',
-    '#EF27A6',
-    '#840032',
-
-
-
+    '#8070ff',
+    '#6fffff',
+    '#fffa6b',
+    '#ff8171',
+    '#8aff59',
+    '#67acff',
+    '#6cffff'
 ];

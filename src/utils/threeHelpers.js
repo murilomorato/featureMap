@@ -18,7 +18,7 @@ export const createCamera = (width, height, frustumSize) => {
 export const createRenderer = (width, height) => {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
-    renderer.setClearColor(0xffffff, 1); //background
+    renderer.setClearColor(0x160e2f, 1); //background
     return renderer;
 };
 
