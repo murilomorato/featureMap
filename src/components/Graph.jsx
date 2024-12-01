@@ -11,10 +11,10 @@ const Graph = () => {
     const [points, setPoints] = useState([]);
     const [lines, setLines] = useState([]);
     const [selectedPoint, setSelectedPoint] = useState(null);
+    const [connectedPoints, setConnectedPoints] = useState([]);
 
     useEffect(() => {
         const initializeGraph = async () => {
-
             const { points, lines } = await getPointsAndConnections();
             setPoints(points);
             setLines(lines);
@@ -24,7 +24,7 @@ const Graph = () => {
             const initZoomScale = 20;
 
             const camera = createCamera(width, height, initZoomScale);
-            sceneRef.current.userData.camera = camera;
+            sceneRef.current.userData.camera = camera; // Adicionar a câmera aos dados do usuário da cena
             const renderer = createRenderer(width, height);
             mountRef.current.appendChild(renderer.domElement);
 
@@ -51,8 +51,20 @@ const Graph = () => {
     }, []);
 
     const handlePointClick = (pointId) => {
-        console.log(`Ponto clicado: ${pointId}`);
         setSelectedPoint(pointId);
+
+        // Identificar os pontos conectados ao ponto clicado
+        const connected = lines.reduce((acc, line) => {
+            if (line.idPointStart === pointId) {
+                acc.push(line.idPointEnd);
+            } else if (line.idPointEnd === pointId) {
+                acc.push(line.idPointStart);
+            }
+            return acc;
+        }, []);
+        setConnectedPoints(connected);
+        console.log(`Ponto clicado: ${pointId}`);
+        console.log(`Ponto conectado: ${connected}`);
     };
 
     return (
@@ -65,7 +77,7 @@ const Graph = () => {
                     name={point.name}
                     scene={sceneRef.current}
                     onClick={handlePointClick}
-                    opacity={selectedPoint === point.id ? 1 : selectedPoint ? 0.2 : 1}
+                    opacity={selectedPoint === point.id || connectedPoints.includes(point.id) ? 1 : selectedPoint ? 0.1 : 1}
                 />
             ))}
             {lines.map(line => (

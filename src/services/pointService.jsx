@@ -49,6 +49,8 @@ const getAllConnections = (points) => {
                 id: index,
                 start: startPosition,
                 end: endPosition,
+                idPointStart: connection.idPointStart,
+                idPointEnd: connection.idPointEnd
             };
         }
         return null;

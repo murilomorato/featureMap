@@ -26,6 +26,12 @@ const Line = ({ start, end, scene, opacity }) => {
         };
     }, [start, end, scene, opacity]);
 
+    useEffect(() => {
+        if (lineRef.current) {
+            lineRef.current.material.opacity = opacity;
+        }
+    }, [opacity]);
+
     return null;
 };
 
