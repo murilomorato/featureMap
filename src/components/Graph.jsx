@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import Point from './atoms/Point';
-import Line from './atoms/Line';
-import { createCamera, createRenderer, handleResize, setupZoom } from '../utils/threeHelpers';
+import Point from '../components/atoms/Point';
+import Line from '../components/atoms/Line';
+import { initializeScene } from '../services/sceneService';
+import { handlePointClick } from '../services/clickService';
 import { getPointsAndConnections } from '../services/pointService';
 
 const Graph = () => {
@@ -14,57 +15,12 @@ const Graph = () => {
     const [connectedPoints, setConnectedPoints] = useState([]);
 
     useEffect(() => {
-        const initializeGraph = async () => {
-            const { points, lines } = await getPointsAndConnections();
-            setPoints(points);
-            setLines(lines);
-
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            const initZoomScale = 20;
-
-            const camera = createCamera(width, height, initZoomScale);
-            sceneRef.current.userData.camera = camera;
-            const renderer = createRenderer(width, height);
-            mountRef.current.appendChild(renderer.domElement);
-
-            const zoomSensibility = 1.0; //sensibilidade do zoom
-            const moveSensibility = 0.1; //sensibilidade do movimento
-            setupZoom(renderer, camera, zoomSensibility, moveSensibility);
-
-            const animate = () => {
-                requestAnimationFrame(animate);
-                renderer.render(sceneRef.current, camera);
-            };
-            animate();
-
-            const onResize = () => handleResize(renderer, camera, initZoomScale);
-            window.addEventListener('resize', onResize);
-
-            return () => {
-                window.removeEventListener('resize', onResize);
-                mountRef.current.removeChild(renderer.domElement);
-            };
-        };
-
-        initializeGraph();
+        const cleanup = initializeScene(mountRef, sceneRef, setPoints, setLines, getPointsAndConnections);
+        return cleanup;
     }, []);
 
-    const handlePointClick = (pointId) => {
-        setSelectedPoint(pointId);
-
-        // Identificar os pontos conectados ao ponto clicado
-        const connected = lines.reduce((acc, line) => {
-            if (line.idPointStart === pointId) {
-                acc.push(line.idPointEnd);
-            } else if (line.idPointEnd === pointId) {
-                acc.push(line.idPointStart);
-            }
-            return acc;
-        }, []);
-        setConnectedPoints(connected);
-        console.log(`Ponto clicado: ${pointId}`);
-        console.log(`Ponto conectado: ${connected}`);
+    const onPointClick = (pointId) => {
+        handlePointClick(pointId, lines, setSelectedPoint, setConnectedPoints);
     };
 
     return (
@@ -76,7 +32,7 @@ const Graph = () => {
                     position={point.position}
                     name={point.name}
                     scene={sceneRef.current}
-                    onClick={handlePointClick}
+                    onClick={onPointClick}
                     opacity={selectedPoint === point.id || connectedPoints.includes(point.id) ? 1 : selectedPoint ? 0.1 : 1}
                 />
             ))}
@@ -87,7 +43,7 @@ const Graph = () => {
                     end={line.end}
                     scene={sceneRef.current}
                     opacity={
-                        selectedPoint === line.idPointStart || selectedPoint === line.idPointEnd ? 1 : selectedPoint ? 0.1 : 1
+                        selectedPoint === line.idPointStart || selectedPoint === line.idPointEnd ? 1 : selectedPoint ? 0.2 : 1
                     }
                 />
             ))}
