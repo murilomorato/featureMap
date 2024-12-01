@@ -6,9 +6,9 @@ const Line = ({ start, end, scene, opacity }) => {
 
     useEffect(() => {
         const material = new THREE.LineDashedMaterial({
-            color: 0xafafaf,
-            dashSize: 0.06,
-            gapSize: 0.06,
+            color: 0x4a5072,
+            dashSize: 0.15,
+            gapSize: 0.1,
             transparent: true,
             opacity: opacity
         });

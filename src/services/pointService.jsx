@@ -17,7 +17,7 @@ export const getPointsAndConnections = async () => {
 
 const getAllPoints = async () => {
     const radius = 10;
-    const numPoints = 100;
+    const numPoints = 50;
 
     const allPoints = Array.from({ length: numPoints }, (_, id) => (
         new Point(id, `Point ${id}`, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', randomPosition(radius))

@@ -24,7 +24,7 @@ const Graph = () => {
             const initZoomScale = 20;
 
             const camera = createCamera(width, height, initZoomScale);
-            sceneRef.current.userData.camera = camera; // Adicionar a câmera aos dados do usuário da cena
+            sceneRef.current.userData.camera = camera;
             const renderer = createRenderer(width, height);
             mountRef.current.appendChild(renderer.domElement);
 
@@ -86,7 +86,9 @@ const Graph = () => {
                     start={line.start}
                     end={line.end}
                     scene={sceneRef.current}
-                    opacity={selectedPoint ? 0.2 : 1}
+                    opacity={
+                        selectedPoint === line.idPointStart || selectedPoint === line.idPointEnd ? 1 : selectedPoint ? 0.1 : 1
+                    }
                 />
             ))}
         </div>
